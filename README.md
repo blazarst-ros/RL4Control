@@ -26,6 +26,7 @@
 │   └── test_render.py
 ├── CheckPoints/
 ├── ModelWeight&TrainingStrategy/
+├── Matlab_Wheeled_legged/
 ├── requirements.txt
 ├── environment.yml
 └── CartPole强化学习项目使用指南.docx
@@ -36,6 +37,7 @@
 - `scripts/`：训练、评估、测试和实验批处理的入口脚本。
 - `CheckPoints/`：历史训练过程中保存的模型检查点。
 - `ModelWeight&TrainingStrategy/`：已训练好的模型权重文件。
+- `Matlab_Wheeled_legged/`：轮腿倒立摆 LQR 补充实验，用于和强化学习方法做传统控制对比。
 - `requirements.txt`：当前环境导出的 Python 依赖。
 - `environment.yml`：Conda 环境定义。
 - `CartPole强化学习项目使用指南.docx`：中文项目使用说明。
@@ -176,6 +178,24 @@ CartPole 具有以下特点：
 - `summary.md`
 - 奖励、loss、探索率和评估曲线的对比图
 
+### 本次报告使用的数据
+
+课程报告使用的实验归档位于工作区：
+
+```text
+Data/cartpole_dqn_report/20260712_193429/
+```
+
+该归档包含三组参数对比：
+
+- `learning_rate`：对比 `5e-4`、`1e-3`、`2e-3`、`5e-3`。
+- `gamma`：对比 `0.90`、`0.95`、`0.99`、`0.995`。
+- `exploration`：对比默认 epsilon-greedy、快速衰减、慢速衰减和 greedy。
+
+每组实验下均保存 `comparison/summary.csv`、对比曲线、单次运行配置、
+训练指标、评估指标、模型文件和检查点。报告中选用 `gamma_0p95_seed_42`
+作为最终分析配置，其独立评估平均奖励为 `248.0`。
+
 ## 脚本说明
 
 ### 训练
@@ -232,6 +252,23 @@ python scripts/run_cartpole_experiments.py \
   --checkpoint-freq 5000
 ```
 
+### MATLAB LQR 补充实验
+
+```matlab
+cd Matlab_Wheeled_legged
+run_wheel_leg_lqr_demo
+```
+
+该补充实验会建立轮驱倒立摆的小角度线性化模型，使用 `lqr(A, B, Q, R)`
+计算反馈增益，并在非线性摆模型上仿真响应。主要文件包括：
+
+- `run_wheel_leg_lqr_demo.m`：主入口脚本。
+- `wheel_leg_lqr_config.m`：物理参数、LQR 权重、仿真和可视化配置。
+- `linearized_wheel_leg_model.m`：线性化状态空间模型。
+- `wheel_leg_dynamics.m`：带饱和控制输入的非线性仿真模型。
+- `animate_wheel_leg_lqr.m`：轮腿小车和五连杆腿部可视化。
+- `plot_response.m`：位置、俯仰角和控制输入曲线。
+
 ## 已包含的模型与检查点
 
 仓库中已经附带了若干训练结果：
@@ -266,6 +303,7 @@ conda activate RL
 - 评估脚本默认从 `models/cartpole_dqn.zip` 读取模型。
 - `run_cartpole_experiments.py` 会把实验结果写入可配置的数据根目录，
   适合做可重复的超参数对比。
+- GitHub 仓库地址：<https://github.com/blazarst-ros/RL4Control>
 
 ## 许可证
 
