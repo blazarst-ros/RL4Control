@@ -14,6 +14,15 @@
 除了训练代码之外，项目还保留了历史检查点、已训练模型、实验输出
 目录和一份中文项目说明文档。
 
+<p align="center">
+  <img src="docs/assets/readme/gamma_0p95_reward_by_episode.png" width="48%" alt="DQN reward by episode">
+  <img src="docs/assets/readme/gamma_evaluation_reward_comparison.png" width="48%" alt="Gamma evaluation comparison">
+</p>
+
+<p align="center">
+  <sub>左：选定 DQN 配置的训练回合奖励；右：折扣因子对最终评估奖励的影响。</sub>
+</p>
+
 ## 项目结构
 
 ```text
@@ -196,6 +205,17 @@ Data/cartpole_dqn_report/20260712_193429/
 训练指标、评估指标、模型文件和检查点。报告中选用 `gamma_0p95_seed_42`
 作为最终分析配置，其独立评估平均奖励为 `248.0`。
 
+### 实验曲线预览
+
+<p align="center">
+  <img src="docs/assets/readme/learning_rate_evaluation_reward_comparison.png" width="32%" alt="Learning-rate comparison">
+  <img src="docs/assets/readme/gamma_evaluation_reward_comparison.png" width="32%" alt="Gamma comparison">
+  <img src="docs/assets/readme/exploration_evaluation_reward_comparison.png" width="32%" alt="Exploration comparison">
+</p>
+
+这些曲线分别展示学习率、折扣因子和探索策略对评估奖励的影响。完整数据、
+单次运行曲线、模型文件和检查点保存在实验归档目录中。
+
 ## 脚本说明
 
 ### 训练
@@ -268,6 +288,14 @@ run_wheel_leg_lqr_demo
 - `wheel_leg_dynamics.m`：带饱和控制输入的非线性仿真模型。
 - `animate_wheel_leg_lqr.m`：轮腿小车和五连杆腿部可视化。
 - `plot_response.m`：位置、俯仰角和控制输入曲线。
+
+<p align="center">
+  <img src="docs/assets/readme/matlab_lqr_response.png" width="70%" alt="MATLAB LQR response">
+</p>
+
+<p align="center">
+  <sub>MATLAB LQR 补充实验中的位置、俯仰角和控制输入响应。</sub>
+</p>
 
 ## 已包含的模型与检查点
 
